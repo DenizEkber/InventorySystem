@@ -1,16 +1,46 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
+    <Compile Update="SaxlaLazimOlar.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="UI\AddSupplierInfo.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="UI\AddWareHouseInfo.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="UI\FormPanel\BuyProductPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="UI\FormPanel\DashboardPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="UI\FormPanel\InventoryPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="UI\FormPanel\LoginPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="UI\FormPanel\ProfilePanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="UI\FormPanel\RegisterPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="UI\FormPanel\ResultPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="UI\FormPanel\SalePanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="UI\FormPanel\SearchPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Update="UI\Forms\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="UI\Forms\ProductForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Update="UI\Forms\StockTransactionForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Update="UI\Forms\SupplierForm.cs">
+    <Compile Update="UI\Forms\WelcomeForm.cs">
       <SubType>Form</SubType>
     </Compile>
   </ItemGroup>

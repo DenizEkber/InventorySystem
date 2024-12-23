@@ -13,17 +13,19 @@ namespace InventorySystem.DATABASE.CodeFirst.Configurations
     {
         public void Configure(EntityTypeBuilder<StockTransaction> builder)
         {
-            builder.HasKey(st => st.Id);
-            builder.Property(st => st.Quantity).IsRequired();
-            builder.Property(st => st.TransactionDate).IsRequired();
-            builder.Property(st => st.TransactionType)
-                .IsRequired()
-                .HasMaxLength(50);
+            builder.ToTable("StockTransactions");
 
-            builder.HasOne(st => st.Product)
-                .WithMany(p => p.StockTransactions)
-                .HasForeignKey(st => st.ProductId)
-                .OnDelete(DeleteBehavior.Cascade);
+            builder.HasKey(st => st.ID);
+
+            builder.Property(st => st.Quantity)
+                   .IsRequired();
+
+            builder.Property(st => st.TransactionDate)
+                   .IsRequired();
+
+            builder.HasOne(st => st.Stock)
+                   .WithMany()
+                   .HasForeignKey(st => st.StockID);
         }
     }
 }

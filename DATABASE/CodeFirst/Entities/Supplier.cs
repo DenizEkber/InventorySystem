@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace InventorySystem.DATABASE.CodeFirst.Entities
 {
     public class Supplier
@@ -11,6 +6,11 @@ namespace InventorySystem.DATABASE.CodeFirst.Entities
         public int Id { get; set; }
         public string Name { get; set; }
         public string ContactInfo { get; set; }
-        public ICollection<Product> Products { get; set; }
+        public string SupplierAddress { get; set; }
+
+        // User Relationship
+        public int UserID { get; set; }
+        public User User { get; set; } // Navigation property
+
     }
 }

@@ -22,6 +22,66 @@ namespace InventorySystem.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("InventorySystem.DATABASE.CodeFirst.Entities.Category", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("ShortName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Categories", (string)null);
+                });
+
+            modelBuilder.Entity("InventorySystem.DATABASE.CodeFirst.Entities.CurrentStock", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<DateTime>("LastUpdated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("ProductID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<string>("SKU")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("StockType")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SupplierOrdWarehouseId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("ProductID");
+
+                    b.ToTable("CurrentStocks", (string)null);
+                });
+
             modelBuilder.Entity("InventorySystem.DATABASE.CodeFirst.Entities.Product", b =>
                 {
                     b.Property<int>("Id")
@@ -30,67 +90,114 @@ namespace InventorySystem.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Location")
+                    b.Property<string>("BarCode")
                         .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
-                    b.Property<int>("MinimumStock")
+                    b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<decimal>("PackedDepth")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("PackedHeight")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("PackedWeight")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("PackedWidth")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("ProductDescription")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Refrigerated")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
+
+                    b.ToTable("Products", (string)null);
+                });
+
+            modelBuilder.Entity("InventorySystem.DATABASE.CodeFirst.Entities.Stock", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<DateTime>("LastUpdated")
+                        .HasColumnType("datetime2");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("ProductID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
 
                     b.Property<string>("SKU")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<int>("StockLevel")
+                    b.Property<int>("StockType")
                         .HasColumnType("int");
 
-                    b.Property<int>("SupplierId")
+                    b.Property<int>("SupplierOrdWarehouseId")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.HasKey("ID");
 
-                    b.HasIndex("SupplierId");
+                    b.HasIndex("ProductID");
 
-                    b.ToTable("Products");
+                    b.ToTable("Stocks", (string)null);
                 });
 
             modelBuilder.Entity("InventorySystem.DATABASE.CodeFirst.Entities.StockTransaction", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
 
-                    b.Property<int>("ProductId")
+                    b.Property<int>("From")
                         .HasColumnType("int");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
+                    b.Property<int>("StockID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("To")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("TransactionDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("TransactionType")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                    b.Property<int>("TransactionType")
+                        .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.HasKey("ID");
 
-                    b.HasIndex("ProductId");
+                    b.HasIndex("StockID");
 
-                    b.ToTable("StockTransactions");
+                    b.ToTable("StockTransactions", (string)null);
                 });
 
             modelBuilder.Entity("InventorySystem.DATABASE.CodeFirst.Entities.Supplier", b =>
@@ -103,35 +210,126 @@ namespace InventorySystem.Migrations
 
                     b.Property<string>("ContactInfo")
                         .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<string>("SupplierAddress")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserID")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserID");
+
+                    b.ToTable("Suppliers", (string)null);
+                });
+
+            modelBuilder.Entity("InventorySystem.DATABASE.CodeFirst.Entities.User", b =>
+                {
+                    b.Property<int>("UserID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserID"));
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProfileImageUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Role")
+                        .HasColumnType("int");
+
+                    b.HasKey("UserID");
+
+                    b.ToTable("Users", (string)null);
+                });
+
+            modelBuilder.Entity("InventorySystem.DATABASE.CodeFirst.Entities.UserDetail", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ProfileImageUrl")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
-                    b.ToTable("Suppliers");
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
+                    b.ToTable("UserDetails", (string)null);
                 });
 
-            modelBuilder.Entity("InventorySystem.DATABASE.CodeFirst.Entities.Product", b =>
+            modelBuilder.Entity("InventorySystem.DATABASE.CodeFirst.Entities.Warehouse", b =>
                 {
-                    b.HasOne("InventorySystem.DATABASE.CodeFirst.Entities.Supplier", "Supplier")
-                        .WithMany("Products")
-                        .HasForeignKey("SupplierId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Property<int>("WarehouseID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
 
-                    b.Navigation("Supplier");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("WarehouseID"));
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ContactInfo")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<bool>("IsRefrigerated")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("UserID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("WarehouseName")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.HasKey("WarehouseID");
+
+                    b.HasIndex("UserID");
+
+                    b.ToTable("Warehouses", (string)null);
                 });
 
-            modelBuilder.Entity("InventorySystem.DATABASE.CodeFirst.Entities.StockTransaction", b =>
+            modelBuilder.Entity("InventorySystem.DATABASE.CodeFirst.Entities.CurrentStock", b =>
                 {
                     b.HasOne("InventorySystem.DATABASE.CodeFirst.Entities.Product", "Product")
-                        .WithMany("StockTransactions")
-                        .HasForeignKey("ProductId")
+                        .WithMany()
+                        .HasForeignKey("ProductID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -140,12 +338,79 @@ namespace InventorySystem.Migrations
 
             modelBuilder.Entity("InventorySystem.DATABASE.CodeFirst.Entities.Product", b =>
                 {
-                    b.Navigation("StockTransactions");
+                    b.HasOne("InventorySystem.DATABASE.CodeFirst.Entities.Category", "Category")
+                        .WithMany("Products")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
+                });
+
+            modelBuilder.Entity("InventorySystem.DATABASE.CodeFirst.Entities.Stock", b =>
+                {
+                    b.HasOne("InventorySystem.DATABASE.CodeFirst.Entities.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("InventorySystem.DATABASE.CodeFirst.Entities.StockTransaction", b =>
+                {
+                    b.HasOne("InventorySystem.DATABASE.CodeFirst.Entities.Stock", "Stock")
+                        .WithMany()
+                        .HasForeignKey("StockID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Stock");
                 });
 
             modelBuilder.Entity("InventorySystem.DATABASE.CodeFirst.Entities.Supplier", b =>
                 {
+                    b.HasOne("InventorySystem.DATABASE.CodeFirst.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("InventorySystem.DATABASE.CodeFirst.Entities.UserDetail", b =>
+                {
+                    b.HasOne("InventorySystem.DATABASE.CodeFirst.Entities.User", "User")
+                        .WithOne("UserDetail")
+                        .HasForeignKey("InventorySystem.DATABASE.CodeFirst.Entities.UserDetail", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("InventorySystem.DATABASE.CodeFirst.Entities.Warehouse", b =>
+                {
+                    b.HasOne("InventorySystem.DATABASE.CodeFirst.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("InventorySystem.DATABASE.CodeFirst.Entities.Category", b =>
+                {
                     b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("InventorySystem.DATABASE.CodeFirst.Entities.User", b =>
+                {
+                    b.Navigation("UserDetail")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
